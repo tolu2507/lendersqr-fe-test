@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { ALLDATA, DATA } from "../pages/DashBoardPage";
 import { Filter } from "../components/filter";
 import { GetJson } from "../components/JSON";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Action } from "../components/action";
 
 export const Body = () => {
   const [hide, setHide] = useState(false);
   const [show, setShow] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const locate = location.pathname;
-  let datas = GetJson()
+  let datas = GetJson();
 
   function handleClick(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -19,6 +20,10 @@ export const Body = () => {
   function handleClickAction(e: { preventDefault: () => void }) {
     e.preventDefault();
     setShow(!show);
+  }
+  function handleDetails(e: { preventDefault: () => void; }) {
+    e.preventDefault();
+    navigate('/userdetails')
   }
 
   return (
@@ -142,27 +147,13 @@ export const Body = () => {
                 </tr>
                 {datas.map((data: DATA) => {
                   return (
-                    <tr key={data.id}>
-                      <td>
-                        <Link to="userdetails">{data.orgName}</Link>
-                      </td>
-                      <td>
-                        <Link to="userdetails">{data.userName}</Link>
-                      </td>
-                      <td>
-                        <Link to="userdetails">{data.email}</Link>
-                      </td>
-                      <td>
-                        <Link to="userdetails">{data.phoneNumber}</Link>
-                      </td>
-                      <td>
-                        <Link to="userdetails">
-                          {data.createdAt?.toString().slice(0, 10)}
-                        </Link>
-                      </td>
-                      <td>
-                        <Link to="userdetails">{data.id}</Link>
-                      </td>
+                    <tr key={data.id} onClick={handleDetails}>
+                      <td>{data.orgName}</td>
+                      <td>{data.userName}</td>
+                      <td>{data.email}</td>
+                      <td>{data.phoneNumber}</td>
+                      <td>{data.createdAt?.toString().slice(0, 10)}</td>
+                      <td>{data.id}</td>
                       <td>
                         <button type="button" onClick={handleClickAction}>
                           :
