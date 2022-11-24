@@ -20,7 +20,8 @@
       "default",
       {
         "ignore": [
-          "input[type=date]"
+          "input[type=date]",
+          "meta[name=theme-color]"
         ]
       }
     ]
